@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import "./login.css"; 
 import toastr from 'toastr';
-
-
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 
 
 class LoginForm extends Component {
@@ -44,6 +42,8 @@ class LoginForm extends Component {
   }
 
   handleSubmit(event) {
+    
+
     fetch("http://13.90.224.87:8099/api/Login/SignIn", {
       method: "POST",
       headers: {
@@ -62,7 +62,8 @@ class LoginForm extends Component {
           console.log(result);
           localStorage.setItem("token", result.response.token);
           localStorage.setItem("role", result.response.userRole);
-          return (<Navigate to="/" replace={true} />)
+          //window.location.assign('/admin')
+          
         } else {
           toastr.error("log in failed.");
           

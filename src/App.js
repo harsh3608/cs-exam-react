@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
-import Login from './common/Login';
+import Router from './common/Router';
 
 const App = () => (
   <div>
-    <Login />
+
+    <Router/>
   </div>
 )
 
