@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import "./login.css"; 
+import toastr from 'toastr';
+
+
+import { Navigate } from "react-router-dom";
+
 
 class LoginForm extends Component {
   constructor(props) {
@@ -21,9 +26,6 @@ class LoginForm extends Component {
   };
 
   togglePasswordVisibility = () => {
-    // this.state.showPassword = !this.state.showPassword;
-    // console.log(this.state.showPassword);
-
     this.setState((prevState) => ({
       showPassword: !prevState.showPassword,
     }));
@@ -42,11 +44,6 @@ class LoginForm extends Component {
   }
 
   handleSubmit(event) {
-    const { history } = this.props;
-
-    console.log("form has been submitted: ");
-    console.log(this.state.email + " - " + this.state.password);
-
     fetch("http://13.90.224.87:8099/api/Login/SignIn", {
       method: "POST",
       headers: {
@@ -61,12 +58,14 @@ class LoginForm extends Component {
       .then((res) => res.json())
       .then((result) => {
         if (result.isSuccess) {
-          window.alert("logged in successfully.");
-          console.log("logged in successfully.");
+          toastr.success("logged in successfully.");
+          console.log(result);
           localStorage.setItem("token", result.response.token);
-          history.push("/home");
+          localStorage.setItem("role", result.response.userRole);
+          return (<Navigate to="/" replace={true} />)
         } else {
-          console.log("log in failed.");
+          toastr.error("log in failed.");
+          
         }
       });
 

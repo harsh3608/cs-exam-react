@@ -1,0 +1,26 @@
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .not-found-box {
+    background-color: rgb(240, 138, 138);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border: solid red;
+    
+  }
+  
+  .not-found-box h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .not-found-box p {
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+  
