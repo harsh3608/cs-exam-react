@@ -1,0 +1,16 @@
+.form-box {
+    margin-top: 100px;
+    width: 30%;
+    height: 25%;
+    margin-left: 35%;
+    border: solid 1px;
+    scale: 1.1;
+  }
+  
+  .icon-container {
+    position: absolute;
+    top: 67%;
+    right: 11%;
+    scale:1.2
+  }
+  
