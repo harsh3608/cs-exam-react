@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./login.css"; 
 import toastr from 'toastr';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 class LoginForm extends Component {
@@ -42,7 +42,7 @@ class LoginForm extends Component {
   }
 
   handleSubmit(event) {
-    
+    const { navigate } = this.props;
 
     fetch("http://13.90.224.87:8099/api/Login/SignIn", {
       method: "POST",
@@ -63,6 +63,11 @@ class LoginForm extends Component {
           localStorage.setItem("token", result.response.token);
           localStorage.setItem("role", result.response.userRole);
           //window.location.assign('/admin')
+          if (result.response.userRole === "Users") {
+            navigate('/user');
+          } else {
+            navigate('/admin');
+          }
           
         } else {
           toastr.error("log in failed.");
@@ -144,9 +149,11 @@ class LoginForm extends Component {
 }
 
 const Login = () => {
+  const navigate = useNavigate(); // Use the useNavigate hook here
+
   return (
     <div>
-      <LoginForm />
+      <LoginForm navigate={navigate} />
     </div>
   );
 };
