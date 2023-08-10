@@ -1,0 +1,9 @@
+.navbar{
+    background-color: #FADBC1;
+    
+}
+
+.brand{
+    display: flex;
+    flex-direction: row;
+}
