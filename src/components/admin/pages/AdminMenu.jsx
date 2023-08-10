@@ -1,4 +1,10 @@
 import React from "react";
+// import { BrowserRouter, Routes, Route, } from "react-router-dom";
+// import ProtectedRoute from "../../../util/ProtectedRoute";
+// import AddUser from "../../../common/AddUser";
+// import QuestionList from "./questions/QuestionList";
+// import ExamList from "./exams/ExamList";
+// import ResultList from "./results/ResultList";
 
 const AdminMenu = () => (
     <div>
@@ -10,9 +16,9 @@ const AdminMenu = () => (
                 height="40"
                 className="d-inline-block align-top"
             />
-            <a className="navbar-brand" href="/">
+            <h3 className="navbar-brand" >
                 Online Exam
-            </a>
+            </h3>
             <button
                 className="navbar-toggler"
                 type="button"
@@ -27,28 +33,41 @@ const AdminMenu = () => (
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <a className="nav-link" href="/add-candidate">
+                        <a className="nav-link" href="/admin/add-candidate">
                             Add Candidate
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/questions">
+                        <a className="nav-link" href="/admin/questions">
                             Questions
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/exams">
+                        <a className="nav-link" href="/admin/exams">
                             Exams
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/results">
+                        <a className="nav-link" href="/admin/results">
                             Results
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
+
+
+        {/* <div>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/admin/add-candidate" element={<ProtectedRoute><AddUser /></ProtectedRoute>} />
+                    <Route path="/admin/questions" element={<ProtectedRoute><QuestionList /></ProtectedRoute>} />
+                    <Route path="/admin/exams" element={<ProtectedRoute><ExamList /></ProtectedRoute>} />
+                    <Route path="/admin/results" element={<ProtectedRoute><ResultList /></ProtectedRoute>} />
+                </Routes>
+            </BrowserRouter>
+        </div> */}
+
 
     </div>
 );
