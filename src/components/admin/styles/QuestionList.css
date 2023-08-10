@@ -1,6 +1,10 @@
-.ellipsis-200 {
-    max-width: 300px;
+.ellipsis-300 {
+    max-width: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+}
+
+/* .vertical-icon {
+    transform: rotate(90deg); 
+} */

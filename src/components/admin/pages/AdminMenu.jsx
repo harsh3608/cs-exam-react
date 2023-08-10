@@ -1,8 +1,19 @@
 import React from "react";
-import "../../admin/styles/AdminMenu.css"
+import "../../admin/styles/AdminMenu.css";
+import { useNavigate } from 'react-router-dom'; 
+import toastr from 'toastr';
 
-const AdminMenu = () => (
-    <div>
+const AdminMenu = () => {
+    const navigate = useNavigate();
+
+    const logOut = () => {
+        localStorage.clear();
+        toastr.success("logged out successfully.");
+        navigate("/");
+    }
+
+    return (
+<div>
         <nav className="navbar navbar-expand-lg d-flex flex-row justify-content-between">
             <div className="brand mx-3">
                 <img
@@ -31,21 +42,21 @@ const AdminMenu = () => (
                     </li>
                     <li className="nav-item">
                         <a className="nav-link text-dark" href="/admin/questions">
-                            Questions
+                            Manage Questions
                         </a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link text-dark" href="/admin/exams">
-                            Exams
+                            Manage Exams
                         </a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link  text-dark" href="/admin/results">
-                            Results
+                            Exam Results
                         </a>
                     </li>
                     <li className="nav-item">
-                        <button className="btn btn-light"><span className="text-danger">LogOut</span></button>
+                        <button className="btn btn-light" onClick={() => logOut()}><span className="text-danger">LogOut</span></button>
                     </li>
                 </ul>
             </div>
@@ -53,6 +64,7 @@ const AdminMenu = () => (
 
 
     </div>
-);
+    );
+};
 
 export default AdminMenu;
