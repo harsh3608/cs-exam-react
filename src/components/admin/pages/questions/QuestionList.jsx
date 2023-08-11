@@ -17,7 +17,7 @@ const QuestionList = () => {
             fetchData();
             setLoading(false);
         }, 3000);
-    }, [currentPage, rowsPerPage]);
+    }, [currentPage, rowsPerPage, searchText]);
 
     const fetchData = async () => {
         try {
@@ -69,6 +69,7 @@ const QuestionList = () => {
     const firstIndex = lastIndex - rowsPerPage;
 
     const currentData = filteredData.slice(firstIndex, lastIndex);
+    const totalFilteredEntries = filteredData.length;
 
     return (
         <>
@@ -85,27 +86,36 @@ const QuestionList = () => {
                     <div className="d-flex flex-row justify-content-between">
                         <h1>Manage Questions</h1>
 
-                        <div className="search-box">
-                            <input
-                                type="text"
-                                placeholder="Search..."
-                                value={searchText}
-                                onChange={(e) => {
-                                    setSearchText(e.target.value);
-                                    setCurrentPage(1); // Reset currentPage when search changes
-                                }}
-                            />
-                        </div>
-
-                        <div className="mt-2">
-                            <button className="btn btn-primary">
-                                <div className="d-flex flex-row">
-                                    <span className="material-icons">
-                                        add
+                        <div className="d-flex">
+                            <div className="search-box mx-5">
+                                <input
+                                    className="form-control mt-3 "
+                                    type="text"
+                                    placeholder= "Global Search"
+                                    value={searchText}
+                                    onChange={(e) => {
+                                        setSearchText(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                    style={{'scale':'1.2'}}
+                                />
+                                <span className="icon-container">
+                                    <span class="material-icons">
+                                        search
                                     </span>
-                                    <span>Add</span>
-                                </div>
-                            </button>
+                                </span>
+                            </div>
+
+                            <div className="mt-3">
+                                <button className="btn btn-primary">
+                                    <div className="d-flex flex-row">
+                                        <span className="material-icons">
+                                            add
+                                        </span>
+                                        <span>Add</span>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <hr></hr>
@@ -186,7 +196,7 @@ const QuestionList = () => {
 
                         <div className="entries-count">
                             <h5 className="mt-2">
-                                Showing {Math.min(firstIndex + 1, sortedData.length)} to {Math.min(lastIndex, sortedData.length)} of {sortedData.length} entries
+                                Showing {Math.min(firstIndex + 1, totalFilteredEntries)} to {Math.min(lastIndex, totalFilteredEntries)} of {totalFilteredEntries} entries
                             </h5>
                         </div>
 
