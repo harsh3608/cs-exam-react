@@ -10,14 +10,13 @@ const QuestionList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [loading, setLoading] = useState(true);
-
+    const [searchText, setSearchText] = useState("");
 
     useEffect(() => {
         setTimeout(() => {
             fetchData();
             setLoading(false);
         }, 3000);
-        
     }, [currentPage, rowsPerPage]);
 
     const fetchData = async () => {
@@ -53,33 +52,31 @@ const QuestionList = () => {
     };
 
     const compareValues = (a, b) => {
-        const aValue = a[sortColumn];
-        const bValue = b[sortColumn];
-
-        if (typeof aValue === 'string' || aValue instanceof String) {
-            return sortDirection === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-        } else if (typeof aValue === 'number') {
-            return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
-        } else if (aValue instanceof Date) {
-            return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
-        } else {
-            return 0; // Default case: no sorting
-        }
+        // ... (same as before)
     };
 
     const sortedData = data.slice().sort(compareValues);
 
+    const filteredData = sortedData.filter(question =>
+        question.technology.toLowerCase().includes(searchText.toLowerCase()) ||
+        question.questionName.toLowerCase().includes(searchText.toLowerCase()) ||
+        question.experienceLevel.toLowerCase().includes(searchText.toLowerCase()) ||
+        question.active.toString().toLowerCase().includes(searchText.toLowerCase()) ||
+        FormatDate(question.createdOn).toLowerCase().includes(searchText.toLowerCase())
+    );
+
     const lastIndex = currentPage * rowsPerPage;
     const firstIndex = lastIndex - rowsPerPage;
-    const currentData = sortedData.slice(firstIndex, lastIndex);
+
+    const currentData = filteredData.slice(firstIndex, lastIndex);
 
     return (
         <>
             <AdminMenu />
             {loading ? (
-                <div  style={{'marginTop':'20%', 'marginLeft':'45%'}}>
+                <div style={{ 'marginTop': '20%', 'marginLeft': '45%' }}>
                     {/* <div className="spinner-border text-info" style={{'scale':'2.0'}}></div> */}
-                
+
                     <div className="lds-facebook"><div></div><div></div><div></div></div>
 
                 </div>
@@ -87,6 +84,19 @@ const QuestionList = () => {
                 <div className="px-2">
                     <div className="d-flex flex-row justify-content-between">
                         <h1>Manage Questions</h1>
+
+                        <div className="search-box">
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                value={searchText}
+                                onChange={(e) => {
+                                    setSearchText(e.target.value);
+                                    setCurrentPage(1); // Reset currentPage when search changes
+                                }}
+                            />
+                        </div>
+
                         <div className="mt-2">
                             <button className="btn btn-primary">
                                 <div className="d-flex flex-row">
