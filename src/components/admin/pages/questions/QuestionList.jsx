@@ -199,7 +199,7 @@ const QuestionList = () => {
                                     <td>{question.active}</td>
                                     <td>{FormatDate(question.createdOn)}</td>
                                     <td>
-                                        <button className="btn btn-warning">
+                                        <button className="btn btn-warning" style={{scale:'0.8'}}>
                                             <span className="material-icons">
                                                 edit_square
                                             </span>

@@ -77,8 +77,8 @@ const ExamList = () => {
 
     const filteredData = sortedData.filter(exam =>
         FormatDate(exam.examDate).toLowerCase().includes(searchText.toLowerCase()) ||
-        String(exam.presentCandidates.length)===(searchText.toLowerCase()) ||
-        exam.absentCandidates.length===(searchText.toLowerCase()) ||
+        String(exam.presentCandidates.length) === (searchText.toLowerCase()) ||
+        exam.absentCandidates.length === (searchText.toLowerCase()) ||
         exam.status.toLowerCase().includes(searchText.toLowerCase())
     );
 
@@ -176,7 +176,7 @@ const ExamList = () => {
                                         </span>
                                     </button>
                                 </th>
-                                
+
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -184,11 +184,27 @@ const ExamList = () => {
                             {currentData.map((exam) => (
                                 <tr key={exam.id}>
                                     <td style={{ width: '200px' }}>{FormatDate(exam.examDate)}</td>
-                                    <td className="ellipsis-300">{exam.presentCandidates.length}</td>
-                                    <td>{exam.absentCandidates.length}</td>
+                                    <td className="ellipsis-300">
+                                        {exam.presentCandidates.length}
+                                        &nbsp;&nbsp;
+                                        <button className="btn btn-primary" style={{scale:'0.8'}}>
+                                            <span class="material-icons">
+                                                view_list
+                                            </span>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        {exam.absentCandidates.length}
+                                        &nbsp;&nbsp;
+                                        <button className="btn btn-danger" style={{scale:'0.8'}}>
+                                            <span class="material-icons">
+                                                view_list
+                                            </span>
+                                        </button>
+                                    </td>
                                     <td>{exam.status}</td>
                                     <td>
-                                        <button className="btn btn-warning">
+                                        <button className="btn btn-warning" style={{scale:'0.8'}}>
                                             <span className="material-icons">
                                                 edit_square
                                             </span>
