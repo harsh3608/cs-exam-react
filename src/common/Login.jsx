@@ -234,7 +234,7 @@ const LoginForm = () => {
         <div style={{ 'marginTop': '20%', 'marginLeft': '45%' }}>
           {/* <div className="spinner-border text-info" style={{'scale':'2.0'}}></div> */}
 
-          <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          <div className="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
         </div>
       ) : (
