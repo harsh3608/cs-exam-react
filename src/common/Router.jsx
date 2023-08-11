@@ -10,6 +10,7 @@ import AddUser from "./AddUser";
 import QuestionList from "../components/admin/pages/questions/QuestionList";
 import ExamList from "../components/admin/pages/exams/ExamList";
 import ResultList from "../components/admin/pages/results/ResultList";
+import QuestionAdd from "../components/admin/pages/questions/QuestionAdd";
 
 const Router = () => (
   <div>
@@ -22,7 +23,7 @@ const Router = () => (
         <Route path="/admin/questions" element={<ProtectedRoute><QuestionList /></ProtectedRoute>} />
         <Route path="/admin/exams" element={<ProtectedRoute><ExamList /></ProtectedRoute>} />
         <Route path="/admin/results" element={<ProtectedRoute><ResultList /></ProtectedRoute>} />
-
+        <Route path="/add-question" element={<ProtectedRoute><QuestionAdd /></ProtectedRoute>} />
 
         <Route path="/user" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
 

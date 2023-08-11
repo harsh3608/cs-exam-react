@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AdminMenu from "../AdminMenu";
 import "../../styles/QuestionList.css";
 import { FormatDate } from "../../../../util/Helpers";
-import QuestionAdd from "./QuestionAdd";
+import { useNavigate } from "react-router-dom";
 
 const QuestionList = () => {
     const [data, setData] = useState([]);
@@ -68,6 +68,12 @@ const QuestionList = () => {
 
     };
 
+    const navigate = useNavigate();
+
+    const navAddQues = () => {
+        navigate("/add-question");
+    };
+
     const sortedData = data.slice().sort(compareValues);
 
     const filteredData = sortedData.filter(question =>
@@ -101,16 +107,16 @@ const QuestionList = () => {
 
                         <div className="d-flex">
 
-                            <div class="input-group mb-3 mt-3 mx-5" style={{ 'scale': '1.1' }}>
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">
-                                        <span class="material-icons">
+                            <div className="input-group mb-3 mt-3 mx-5" style={{ 'scale': '1.1' }}>
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="basic-addon1">
+                                        <span className="material-icons">
                                             search
                                         </span>
                                     </span>
                                 </div>
                                 <input type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     placeholder="Global Search"
                                     value={searchText}
                                     onChange={(e) => {
@@ -120,7 +126,14 @@ const QuestionList = () => {
                             </div>
 
                             <div className="mt-3">
-                                <QuestionAdd />
+                                <button className="btn btn-primary" onClick={() => navAddQues()}>
+                                    <div className="d-flex flex-row">
+                                        <span className="material-icons">
+                                            add
+                                        </span>
+                                        <span>Add</span>
+                                    </div>
+                                </button>
                             </div>
                         </div>
                     </div>
