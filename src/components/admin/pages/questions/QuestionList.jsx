@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AdminMenu from "../AdminMenu";
 import "../../styles/QuestionList.css";
 import { FormatDate } from "../../../../util/Helpers";
+import QuestionAdd from "./QuestionAdd";
 
 const QuestionList = () => {
     const [data, setData] = useState([]);
@@ -52,7 +53,19 @@ const QuestionList = () => {
     };
 
     const compareValues = (a, b) => {
-        // ... (same as before)
+        const aValue = a[sortColumn];
+        const bValue = b[sortColumn];
+
+        if (typeof aValue === 'string' || aValue instanceof String) {
+            return sortDirection === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+        } else if (typeof aValue === 'number') {
+            return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
+        } else if (aValue instanceof Date) {
+            return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
+        } else {
+            return 0; // Default case: no sorting
+        }
+
     };
 
     const sortedData = data.slice().sort(compareValues);
@@ -87,34 +100,27 @@ const QuestionList = () => {
                         <h1>Manage Questions</h1>
 
                         <div className="d-flex">
-                            <div className="search-box mx-5">
-                                <input
-                                    className="form-control mt-3 "
-                                    type="text"
-                                    placeholder= "Global Search"
+
+                            <div class="input-group mb-3 mt-3 mx-5" style={{ 'scale': '1.1' }}>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <span class="material-icons">
+                                            search
+                                        </span>
+                                    </span>
+                                </div>
+                                <input type="text"
+                                    class="form-control"
+                                    placeholder="Global Search"
                                     value={searchText}
                                     onChange={(e) => {
                                         setSearchText(e.target.value);
                                         setCurrentPage(1);
-                                    }}
-                                    style={{'scale':'1.2'}}
-                                />
-                                <span className="icon-container">
-                                    <span class="material-icons">
-                                        search
-                                    </span>
-                                </span>
+                                    }} />
                             </div>
 
                             <div className="mt-3">
-                                <button className="btn btn-primary">
-                                    <div className="d-flex flex-row">
-                                        <span className="material-icons">
-                                            add
-                                        </span>
-                                        <span>Add</span>
-                                    </div>
-                                </button>
+                                <QuestionAdd />
                             </div>
                         </div>
                     </div>
