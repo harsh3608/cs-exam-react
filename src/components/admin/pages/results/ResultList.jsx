@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AdminMenu from "../AdminMenu";
 import "../../styles/ResultList.css";
 import { FormatDate } from "../../../../util/Helpers";
+import { useNavigate } from "react-router-dom";
 
 const ResultList = () => {
     const [data, setData] = useState([]);
@@ -40,6 +41,12 @@ const ResultList = () => {
         } catch (error) {
             console.error('Error fetching data:', error);
         }
+    };
+
+    const navigate = useNavigate();
+
+    const navigateToDetailedResult = (examId, userId, name) => {
+        navigate(`/admin/result-details/${examId}/${userId}/${name}`, );
     };
 
     const handleSort = (column) => {
@@ -200,7 +207,7 @@ const ResultList = () => {
                                     </td>
                                     <td>{result.totalScore}</td>
                                     <td>
-                                        <button className="btn btn-warning" style={{ scale: '0.8' }}>
+                                        <button className="btn btn-warning" style={{ scale: '0.8' }} onClick={() => navigateToDetailedResult(result.candidateExamId, result.userId, result.fullname)}>
                                             <span className="material-icons">
                                                 visibility
                                             </span>

@@ -71,7 +71,7 @@ const QuestionList = () => {
     const navigate = useNavigate();
 
     const navAddQues = () => {
-        navigate("/add-question");
+        navigate("/admin/add-question");
     };
 
     const sortedData = data.slice().sort(compareValues);

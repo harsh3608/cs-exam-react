@@ -46,6 +46,8 @@ const LoginForm = () => {
             console.log(result);
             localStorage.setItem("token", result.response.token);
             localStorage.setItem("role", result.response.userRole);
+            localStorage.setItem("user-id", result.response.userId);
+            localStorage.setItem("name", result.response.fullName);
             if (result.response.userRole === "Users") {
               navigate("/user");
             } else {
