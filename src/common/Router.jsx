@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route, } from "react-router-dom";
 //import AdminDashboard from "../components/admin/pages/AdminDashboard";
 import UserDashboard from "../components/user/pages/UserDashboard";
 import NotFound from "../common/NotFound"
-import Login from "./Login";
+import Login from "./user-login/Login";
 import ProtectedRoute from "../util/ProtectedRoute";
 import AdminMenu from "../components/admin/pages/AdminMenu";
-import AddUser from "./AddUser";
+import AddUser from "./add-user/AddUser";
 import QuestionList from "../components/admin/pages/questions/QuestionList";
 import ExamList from "../components/admin/pages/exams/ExamList";
 import ResultList from "../components/admin/pages/results/ResultList";

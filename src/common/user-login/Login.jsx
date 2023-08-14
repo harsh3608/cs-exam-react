@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./login.css";
+import "./Login.css";
 import toastr from "toastr";
 import { useNavigate } from "react-router-dom";
 
