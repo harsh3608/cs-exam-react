@@ -74,6 +74,10 @@ const QuestionList = () => {
         navigate("/admin/add-question");
     };
 
+    const navUpdateQues = () => {
+        navigate("/admin/update-question");
+    };
+
     const sortedData = data.slice().sort(compareValues);
 
     const filteredData = sortedData.filter(question =>
@@ -221,7 +225,8 @@ const QuestionList = () => {
                                     <td>{question.active}</td>
                                     <td>{FormatDate(question.createdOn)}</td>
                                     <td>
-                                        <button className="btn btn-warning" style={{ scale: '0.8' }}>
+                                        <button className="btn btn-warning" style={{ scale: '0.8' }}
+                                            onClick={() => navUpdateQues()}>
                                             <span className="material-icons">
                                                 edit_square
                                             </span>

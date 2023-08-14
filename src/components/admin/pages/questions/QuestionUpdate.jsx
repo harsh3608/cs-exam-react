@@ -157,7 +157,7 @@ const QuestionUpdate = () => {
             <AdminMenu />
             <div className="container border rounded-4 mt-4 p-3">
                 <div>
-                    <h2>Add Question</h2>
+                    <h2>Update Question</h2>
                 </div>
                 <hr />
 
