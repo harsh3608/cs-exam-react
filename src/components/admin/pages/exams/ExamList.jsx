@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AdminMenu from "../AdminMenu";
 import { FormatDate } from "../../../../util/Helpers";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 const ExamList = () => {
     const [data, setData] = useState([]);
@@ -67,11 +67,15 @@ const ExamList = () => {
 
     };
 
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
-    const navAddQues = () => {
-        navigate("/add-exam");
-    };
+    const clearFilter = () => {
+        setSortColumn(null);
+        setSortDirection('asc');
+        setSearchText('');
+        setCurrentPage(1);
+    }
+
 
     const sortedData = data.slice().sort(compareValues);
 
@@ -80,6 +84,7 @@ const ExamList = () => {
         String(exam.presentCandidates.length) === (searchText.toLowerCase()) ||
         exam.absentCandidates.length === (searchText.toLowerCase()) ||
         exam.status.toLowerCase().includes(searchText.toLowerCase())
+
     );
 
     const lastIndex = currentPage * rowsPerPage;
@@ -105,6 +110,17 @@ const ExamList = () => {
 
                         <div className="d-flex">
 
+                            <div className="mt-3">
+                                <button className="btn btn-success" >
+                                    <div className="d-flex flex-row">
+                                        <span className="material-icons">
+                                            add
+                                        </span>
+                                        <span>Scedule</span>
+                                    </div>
+                                </button>
+                            </div>
+
                             <div className="input-group mb-3 mt-3 mx-5" style={{ 'scale': '1.1' }}>
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">
@@ -124,15 +140,18 @@ const ExamList = () => {
                             </div>
 
                             <div className="mt-3">
-                                <button className="btn btn-primary" onClick={() => navAddQues()}>
-                                    <div className="d-flex flex-row">
+                                <button className="btn btn-outline-primary" onClick={clearFilter}>
+                                    <div className="d-flex">
                                         <span className="material-icons">
-                                            add
+                                            filter_list_off
                                         </span>
-                                        <span>Add</span>
+                                        <span>
+                                            Clear
+                                        </span>
                                     </div>
                                 </button>
                             </div>
+
                         </div>
                     </div>
                     <hr></hr>
@@ -152,7 +171,7 @@ const ExamList = () => {
                                 <th>
                                     Present Candidates
                                     &nbsp;
-                                    <button className="btn btn-light" onClick={() => handleSort('presentCandidates')}>
+                                    <button disabled className="btn btn-light" onClick={() => handleSort('presentCandidates')}>
                                         <span className="material-icons vertical-icon">
                                             {sortColumn === 'presentCandidates' ? (sortDirection === 'asc' ? 'keyboard_double_arrow_up' : 'keyboard_double_arrow_down') : 'filter_list'}
                                         </span>
@@ -161,7 +180,7 @@ const ExamList = () => {
                                 <th>
                                     Absent Candidates
                                     &nbsp;
-                                    <button className="btn btn-light" onClick={() => handleSort('absentCandidates')}>
+                                    <button disabled className="btn btn-light" onClick={() => handleSort('absentCandidates')}>
                                         <span className="material-icons vertical-icon">
                                             {sortColumn === 'absentCandidates' ? (sortDirection === 'asc' ? 'keyboard_double_arrow_up' : 'keyboard_double_arrow_down') : 'filter_list'}
                                         </span>
@@ -187,7 +206,7 @@ const ExamList = () => {
                                     <td className="ellipsis-300">
                                         {exam.presentCandidates.length}
                                         &nbsp;&nbsp;
-                                        <button className="btn btn-primary" style={{scale:'0.8'}}>
+                                        <button className="btn btn-primary" style={{ scale: '0.8' }}>
                                             <span class="material-icons">
                                                 view_list
                                             </span>
@@ -196,7 +215,7 @@ const ExamList = () => {
                                     <td>
                                         {exam.absentCandidates.length}
                                         &nbsp;&nbsp;
-                                        <button className="btn btn-danger" style={{scale:'0.8'}}>
+                                        <button className="btn btn-danger" style={{ scale: '0.8' }}>
                                             <span class="material-icons">
                                                 view_list
                                             </span>
@@ -204,7 +223,7 @@ const ExamList = () => {
                                     </td>
                                     <td>{exam.status}</td>
                                     <td>
-                                        <button className="btn btn-warning" style={{scale:'0.8'}}>
+                                        <button className="btn btn-warning" style={{ scale: '0.8' }}>
                                             <span className="material-icons">
                                                 edit_square
                                             </span>

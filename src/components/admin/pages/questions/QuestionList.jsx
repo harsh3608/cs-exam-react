@@ -84,6 +84,13 @@ const QuestionList = () => {
         FormatDate(question.createdOn).toLowerCase().includes(searchText.toLowerCase())
     );
 
+    const clearFilter = () => {
+        setSortColumn(null);
+        setSortDirection('asc');
+        setSearchText('');
+        setCurrentPage(1);
+    }
+
     const lastIndex = currentPage * rowsPerPage;
     const firstIndex = lastIndex - rowsPerPage;
 
@@ -107,6 +114,17 @@ const QuestionList = () => {
 
                         <div className="d-flex">
 
+                            <div className="mt-3">
+                                <button className="btn btn-success" onClick={() => navAddQues()}>
+                                    <div className="d-flex flex-row">
+                                        <span className="material-icons">
+                                            add
+                                        </span>
+                                        <span>Add</span>
+                                    </div>
+                                </button>
+                            </div>
+
                             <div className="input-group mb-3 mt-3 mx-5" style={{ 'scale': '1.1' }}>
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">
@@ -126,15 +144,19 @@ const QuestionList = () => {
                             </div>
 
                             <div className="mt-3">
-                                <button className="btn btn-primary" onClick={() => navAddQues()}>
-                                    <div className="d-flex flex-row">
+                                <button className="btn btn-outline-primary" onClick={clearFilter}>
+                                    <div className="d-flex">
                                         <span className="material-icons">
-                                            add
+                                            filter_list_off
                                         </span>
-                                        <span>Add</span>
+                                        <span>
+                                            Clear
+                                        </span>
                                     </div>
                                 </button>
                             </div>
+
+
                         </div>
                     </div>
                     <hr></hr>
@@ -199,7 +221,7 @@ const QuestionList = () => {
                                     <td>{question.active}</td>
                                     <td>{FormatDate(question.createdOn)}</td>
                                     <td>
-                                        <button className="btn btn-warning" style={{scale:'0.8'}}>
+                                        <button className="btn btn-warning" style={{ scale: '0.8' }}>
                                             <span className="material-icons">
                                                 edit_square
                                             </span>
