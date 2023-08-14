@@ -17,9 +17,12 @@ const DetailedResult = (props) => {
     useEffect(() => {
         setTimeout(() => {
             fetchData();
+
+            segregateData();
+
             setLoading(false);
         }, 3000);
-    },);
+    }, [ ] );
 
     const fetchData = async () => {
         try {
@@ -38,48 +41,62 @@ const DetailedResult = (props) => {
 
             if (json.isSuccess) {
                 setData(json.response);
+
+                
             }
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
+    const segregateData = () => {
+        console.log("from segg. data",data.length);
+    }
+
+
     return (
         <>
             <AdminMenu />
+            {loading ? (
+                <div style={{ 'marginTop': '20%', 'marginLeft': '45%' }}>
+                    {/* <div className="spinner-border text-info" style={{'scale':'2.0'}}></div> */}
 
-            <div className="container border rounded-3 m-3">
-                <div className="row">
-                    <div className="row">
-                        <div className="col text-center p-2 mb-3 ">
-                            <span className="fs-2">Candidate Result: {name}</span>
-                        </div>
-                    </div>
+                    <div className="lds-facebook"><div></div><div></div><div></div></div>
 
-                    <div className="d-flex mt-2 mb-3 w-50 justify-content-between">
-                        <div style={{marginLeft:'10%'}}>
-                            <span className="badge btn rounded-pill bg-primary ">
-                                Total Questions:{totalCount}
-                            </span>
-                        </div>
-                        <div >
-                            <span className="badge btn rounded-pill bg-success " >
-                                Correct:{rightCount}
-                            </span>
-                        </div>
-                        <div >
-                            <span className="badge btn rounded-pill bg-danger  " >
-                                Wrong:{wrongCount}
-                            </span >
-                        </div>
-
-
-                    </div >
                 </div>
-                <hr></hr>
+            ) : (
+                <div className="container border rounded-3 m-3">
+                    <div className="row">
+                        <div className="row">
+                            <div className="col text-center p-2 mb-3 ">
+                                <span className="fs-2">Candidate Result: {name}</span>
+                            </div>
+                        </div>
 
-            </div >
+                        <div className="d-flex mt-2 mb-3 w-50 justify-content-between">
+                            <div style={{ marginLeft: '10%' }}>
+                                <span className="badge btn rounded-pill bg-primary ">
+                                    Total Questions: {totalCount}
+                                </span>
+                            </div>
+                            <div >
+                                <span className="badge btn rounded-pill bg-success " >
+                                    Correct: {rightCount}
+                                </span>
+                            </div>
+                            <div >
+                                <span className="badge btn rounded-pill bg-danger  " >
+                                    Wrong: {wrongCount}
+                                </span >
+                            </div>
 
+
+                        </div >
+                    </div>
+                    <hr></hr>
+
+                </div >
+            )}
 
         </>
     );
