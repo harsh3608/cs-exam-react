@@ -7,6 +7,9 @@ const DetailedResult = (props) => {
     const { examId } = useParams();
     const { name } = useParams();
     const { userId } = useParams();
+    const totalCount = 0;
+    const rightCount = 0;
+    const wrongCount = 0;
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,7 +19,7 @@ const DetailedResult = (props) => {
             fetchData();
             setLoading(false);
         }, 3000);
-    }, );
+    },);
 
     const fetchData = async () => {
         try {
@@ -46,9 +49,36 @@ const DetailedResult = (props) => {
             <AdminMenu />
 
             <div className="container border rounded-3 m-3">
-                <h2>Candidate Result: {name}</h2>
+                <div className="row">
+                    <div className="row">
+                        <div className="col text-center p-2 mb-3 ">
+                            <span className="fs-2">Candidate Result: {name}</span>
+                        </div>
+                    </div>
 
-            </div>
+                    <div className="d-flex mt-2 mb-3 w-50 justify-content-between">
+                        <div style={{marginLeft:'10%'}}>
+                            <span className="badge btn rounded-pill bg-primary ">
+                                Total Questions:{totalCount}
+                            </span>
+                        </div>
+                        <div >
+                            <span className="badge btn rounded-pill bg-success " >
+                                Correct:{rightCount}
+                            </span>
+                        </div>
+                        <div >
+                            <span className="badge btn rounded-pill bg-danger  " >
+                                Wrong:{wrongCount}
+                            </span >
+                        </div>
+
+
+                    </div >
+                </div>
+                <hr></hr>
+
+            </div >
 
 
         </>
