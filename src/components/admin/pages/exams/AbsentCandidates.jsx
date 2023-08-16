@@ -4,9 +4,9 @@ const AbsentCandidates = () => {
 
     return (
         <>
-        <h2>
-            Absent Candidates
-        </h2>
+            <h2>
+                Absent Candidates
+            </h2>
         </>
     );
 };
