@@ -2,32 +2,42 @@ import React, { useState, useEffect } from "react";
 import AdminMenu from "../AdminMenu";
 import { useParams } from "react-router";
 import "../../styles/DetailedResult.css";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { CKEditor } from 'ckeditor4-react';
+
 
 const DetailedResult = (props) => {
-    const { examId } = useParams();
-    const { name } = useParams();
-    const { userId } = useParams();
-    const totalCount = 0;
-    const rightCount = 0;
-    const wrongCount = 0;
+    const { examId, name, userId } = useParams();
 
-    const [data, setData] = useState([]);
+    const [correctQuestions, setCorrect] = useState([]);
+    const [wrongQuestions, setWrong] = useState([]);
+    const [totalCount, setTotalCount] = useState(0);
+    const [rightCount, setRightCount] = useState(0);
+    const [wrongCount, setWrongCount] = useState(0);
+
+    const [activeBadge, setActiveBadge] = useState('total'); // Initialize with 'total'
+
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setTimeout(() => {
-            fetchData();
+        fetchData();
 
-            segregateData();
+        // Create a CKEditor instance
+        const editor = CKEditor.replace('editor', {
+            toolbar: [] // Empty toolbar to hide all tools
+        });
 
-            setLoading(false);
-        }, 3000);
-    }, [ ] );
+        // Cleanup
+        return () => {
+            editor.destroy();
+        };
+    }, []);
 
     const fetchData = async () => {
-        try {
-            const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');
 
+        try {
             const response = await fetch(`http://13.90.224.87:8099/api/CandidateExam/CandidateResultDetails?candidateExamId=${examId}&userId=${userId}`, {
                 method: "GET",
                 headers: {
@@ -40,32 +50,49 @@ const DetailedResult = (props) => {
             const json = await response.json();
 
             if (json.isSuccess) {
-                setData(json.response);
-
-                
+                segregateData(json.response);
             }
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error("Error fetching data:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
-    const segregateData = () => {
-        console.log("from segg. data",data.length);
-    }
+    const segregateData = (responseData) => {
+        const correctArr = responseData.filter(element => element.isCorrect);
+        const wrongArr = responseData.filter(element => !element.isCorrect);
 
+        setCorrect(correctArr);
+        setWrong(wrongArr);
+        setRightCount(correctArr.length);
+        setWrongCount(wrongArr.length);
+        setTotalCount(responseData.length);
+    };
+
+    const handleBadgeClick = (badge) => {
+        setActiveBadge(badge);
+    };
+
+    const getActiveArray = () => {
+        if (activeBadge === 'total') {
+            return [...correctQuestions, ...wrongQuestions];
+        } else if (activeBadge === 'correct') {
+            return correctQuestions;
+        } else if (activeBadge === 'wrong') {
+            return wrongQuestions;
+        }
+    };
 
     return (
         <>
             <AdminMenu />
             {loading ? (
-                <div style={{ 'marginTop': '20%', 'marginLeft': '45%' }}>
-                    {/* <div className="spinner-border text-info" style={{'scale':'2.0'}}></div> */}
-
+                <div style={{ marginTop: '20%', marginLeft: '45%' }}>
                     <div className="lds-facebook"><div></div><div></div><div></div></div>
-
                 </div>
             ) : (
-                <div className="container border rounded-3 m-3">
+                <div className="container-1 border rounded-3 ">
                     <div className="row">
                         <div className="row">
                             <div className="col text-center p-2 mb-3 ">
@@ -75,29 +102,72 @@ const DetailedResult = (props) => {
 
                         <div className="d-flex mt-2 mb-3 w-50 justify-content-between">
                             <div style={{ marginLeft: '10%' }}>
-                                <span className="badge btn rounded-pill bg-primary ">
+                                <span className={`badge btn rounded-pill ${activeBadge === 'total' ? 'bg-primary' : 'bg-secondary'}`} onClick={() => handleBadgeClick('total')}>
                                     Total Questions: {totalCount}
                                 </span>
                             </div>
-                            <div >
-                                <span className="badge btn rounded-pill bg-success " >
+                            <div>
+                                <span className={`badge btn rounded-pill ${activeBadge === 'correct' ? 'bg-success' : 'bg-secondary'}`} onClick={() => handleBadgeClick('correct')}>
                                     Correct: {rightCount}
                                 </span>
                             </div>
-                            <div >
-                                <span className="badge btn rounded-pill bg-danger  " >
+                            <div>
+                                <span className={`badge btn rounded-pill ${activeBadge === 'wrong' ? 'bg-danger' : 'bg-secondary'}`} onClick={() => handleBadgeClick('wrong')}>
                                     Wrong: {wrongCount}
-                                </span >
+                                </span>
                             </div>
-
-
-                        </div >
+                        </div>
                     </div>
                     <hr></hr>
 
-                </div >
-            )}
+                    <div>
+                        {getActiveArray().map((question, index) => (
+                            <div key={index}>
+                                <div className="border rounded-2 m-3 ">
+                                    <div className="bg-light d-flex justify-content-between m-2">
+                                        <div>
+                                            <span >
+                                                {
+                                                    question.isCorrect ?
+                                                        (
+                                                            <span class="m-2 material-icons text-success" style={{ scale: '1.2' }}>
+                                                                check_circle
+                                                            </span>
+                                                        ) : (
+                                                            <span class="m-2 material-icons text-danger" style={{ transform: 'rotate(45deg)', scale: '1.2' }}>
+                                                                add_circle
+                                                            </span>
+                                                        )
+                                                }
 
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h4>{question.technology}</h4>
+                                        </div>
+                                        <div>
+
+
+
+                                        </div>
+                                    </div>
+
+                                    <div className=" m-3">
+                                        <ReactQuill value={question.question} />
+                                    </div>
+
+                                    <div className="d-flex">
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </>
     );
 };

@@ -25,7 +25,7 @@ const AdminMenu = () => {
                 />
                 &nbsp;&nbsp;
                 <h2 className="navbar-brand mt-2" >
-                    Online Exam
+                    Admin Dashboard
                 </h2>
             </div>
 
