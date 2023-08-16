@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import AdminMenu from "../AdminMenu";
 import { FormatDate } from "../../../../util/Helpers";
+import PresentCandidates from "./PresentCandidates";
+import AbsentCandidates from "./AbsentCandidates";
 //import { useNavigate } from "react-router-dom";
 
 const ExamList = () => {
@@ -206,20 +208,13 @@ const ExamList = () => {
                                     <td className="ellipsis-300">
                                         {exam.presentCandidates.length}
                                         &nbsp;&nbsp;
-                                        <button className="btn btn-primary" style={{ scale: '0.8' }}>
-                                            <span class="material-icons">
-                                                view_list
-                                            </span>
-                                        </button>
+                                        <PresentCandidates />
                                     </td>
                                     <td>
                                         {exam.absentCandidates.length}
                                         &nbsp;&nbsp;
-                                        <button className="btn btn-danger" style={{ scale: '0.8' }}>
-                                            <span class="material-icons">
-                                                view_list
-                                            </span>
-                                        </button>
+                                        <AbsentCandidates />
+                                        
                                     </td>
                                     <td>{exam.status}</td>
                                     <td>
