@@ -4,7 +4,6 @@ import { useParams } from "react-router";
 import "../../styles/DetailedResult.css";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { CKEditor } from 'ckeditor4-react';
 
 
 const DetailedResult = (props) => {
@@ -23,15 +22,7 @@ const DetailedResult = (props) => {
     useEffect(() => {
         fetchData();
 
-        // Create a CKEditor instance
-        const editor = CKEditor.replace('editor', {
-            toolbar: [] // Empty toolbar to hide all tools
-        });
 
-        // Cleanup
-        return () => {
-            editor.destroy();
-        };
     }, []);
 
     const fetchData = async () => {
@@ -130,11 +121,11 @@ const DetailedResult = (props) => {
                                                 {
                                                     question.isCorrect ?
                                                         (
-                                                            <span class="m-2 material-icons text-success" style={{ scale: '1.2' }}>
+                                                            <span className="mt-3 mx-2 material-icons text-success" style={{ scale: '1.2' }}>
                                                                 check_circle
                                                             </span>
                                                         ) : (
-                                                            <span class="m-2 material-icons text-danger" style={{ transform: 'rotate(45deg)', scale: '1.2' }}>
+                                                            <span className="mt-3 mx-2 material-icons text-danger" style={{ transform: 'rotate(45deg)', scale: '1.2' }}>
                                                                 add_circle
                                                             </span>
                                                         )
@@ -142,21 +133,32 @@ const DetailedResult = (props) => {
 
                                             </span>
                                         </div>
-                                        <div>
+                                        <div className="m-2">
                                             <h4>{question.technology}</h4>
                                         </div>
                                         <div>
-
-
-
+                                            <span className="badge bg-warning my-3 mx-4"  >Marks: {question.marks}</span>
                                         </div>
                                     </div>
 
                                     <div className=" m-3">
-                                        <ReactQuill value={question.question} />
+                                        <ReactQuill value={question.question} readOnly style={{ minHeight: '200px' }} />
                                     </div>
 
                                     <div className="d-flex">
+                                        <div>
+                                            <span className="badge bg-primary mx-5 my-3">Correct Answer: {question.correctAnswer}</span>
+                                        </div>
+                                        {
+                                            question.userSelectedAnswer ?
+                                                (
+
+                                                    <span className={`badge mx-5 my-3 ${question.userSelectedAnswer === question.correctAnswer ? 'bg-success' : 'bg-danger'}`}>User Selected Answer: {question.userSelectedAnswer}</span>
+                                                ) : (
+                                                    <span className="wrong badge bg-danger mx-5 my-3">skipped</span>
+                                                )
+
+                                        }
 
                                     </div>
                                 </div>

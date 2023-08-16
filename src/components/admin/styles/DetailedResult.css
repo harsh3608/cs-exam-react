@@ -15,8 +15,9 @@
     background-color: white;
 }
 
-.head{
-    background-color: blueviolet;
+.wrong{
+    scale: '0.8';
+    margin-left: 5%;
 
 }
 
