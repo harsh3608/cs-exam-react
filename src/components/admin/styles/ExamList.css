@@ -26,8 +26,19 @@
   width: 350px;
 }
 
+.candy-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.candy-modal .modal-dialog {
+  width: 700px;
+}
 
+.techs{
+  margin-left: 50px;
+}
 
 
 
