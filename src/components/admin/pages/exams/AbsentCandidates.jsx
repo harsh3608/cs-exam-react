@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-const AbsentCandidates = () => {
+const AbsentCandidates = ({ candidates }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    console.log(candidates);
 
     return (
         <>
@@ -24,7 +26,16 @@ const AbsentCandidates = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Woohoo, you are reading this text in a modal!
+                    <div>
+                        {/* Use the candidates array to render present candidates */}
+                        {candidates.map((candidate, index) => (
+                            <span key={index}>{candidate.name} </span>
+                        ))}
+                    </div>
+
+
+
+
 
                 </Modal.Body>
                 <Modal.Footer>

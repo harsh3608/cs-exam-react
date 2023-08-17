@@ -5,8 +5,26 @@
     text-overflow: ellipsis;
 }
 
+.present-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.present-modal .modal-dialog {
+  width: 350px;
+}
 
 
+.absent-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.absent-modal .modal-dialog {
+  width: 350px;
+}
 
 
 

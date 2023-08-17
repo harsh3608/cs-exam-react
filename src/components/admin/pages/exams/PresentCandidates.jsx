@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import "../../styles/ExamList.css";
 
-const PresentCandidates = () => {
+const PresentCandidates = ({ candidates }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    console.log(candidates);
 
     return (
         <>
@@ -15,7 +18,7 @@ const PresentCandidates = () => {
                 </span>
             </button>
 
-            <Modal show={show} onHide={handleClose} centered>
+            <Modal show={show} onHide={handleClose} centered className="present-modal">
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <h2>
@@ -24,16 +27,42 @@ const PresentCandidates = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Woohoo, you are reading this text in a modal!
+                    
+                    <table className="table mb-5">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {candidates.map((candidate, index) => (
+                                <tr key={index} >
+                                    <td className='p-2 m-2'>{candidate.fullname}</td>
+                                    <td >
+                                        <span className='badge rounded-pill bg-success' style={{ scale: '1' }}>
+                                            {candidate.status}
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+
+
+
+
+
 
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer className='mt-5'>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    {/* <Button variant="primary" onClick={handleClose}>
                         Save Changes
-                    </Button>
+                    </Button> */}
                 </Modal.Footer>
             </Modal>
 
