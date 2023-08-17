@@ -1,15 +1,15 @@
 import React from "react";
 
-const ScheduleExam = () => {
+const ScheduleNewExam = () => {
 
     return (
         <>
             <h2>
-                Schedule Exam
+                Schedule New Exam
             </h2>
 
         </>
     );
 };
 
-export default ScheduleExam;
+export default ScheduleNewExam;
