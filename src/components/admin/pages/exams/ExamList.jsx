@@ -208,12 +208,12 @@ const ExamList = () => {
                                     <td className="ellipsis-300">
                                         {exam.presentCandidates.length}
                                         &nbsp;&nbsp;
-                                        <PresentCandidates />
+                                        <PresentCandidates candidates={exam.presentCandidates} />
                                     </td>
                                     <td>
                                         {exam.absentCandidates.length}
                                         &nbsp;&nbsp;
-                                        <AbsentCandidates />
+                                        <AbsentCandidates candidates={exam.absentCandidates} />
                                         
                                     </td>
                                     <td>{exam.status}</td>
