@@ -3,7 +3,9 @@ import AdminMenu from "../AdminMenu";
 import { FormatDate } from "../../../../util/Helpers";
 import PresentCandidates from "./PresentCandidates";
 import AbsentCandidates from "./AbsentCandidates";
-//import { useNavigate } from "react-router-dom";
+import { isAuthorized } from "../../../../util/TokenAuthUtil";
+import { useNavigate } from 'react-router-dom'; 
+import toastr from 'toastr';
 
 const ExamList = () => {
     const [data, setData] = useState([]);
@@ -14,34 +16,48 @@ const ExamList = () => {
     const [loading, setLoading] = useState(true);
     const [searchText, setSearchText] = useState("");
 
+    const navigate = useNavigate();
+    const logOut = () => {
+        localStorage.clear();
+        toastr.success("logged out successfully.");
+        navigate("/");
+    }
+
     useEffect(() => {
         setTimeout(() => {
             fetchData();
             setLoading(false);
         }, 3000);
-    }, [currentPage, rowsPerPage, searchText]);
+        // }, [currentPage, rowsPerPage, searchText]);
+    },);
 
     const fetchData = async () => {
-        try {
-            const token = localStorage.getItem('token');
+        if (isAuthorized()) {
+            try {
+                const token = localStorage.getItem('token');
 
-            const response = await fetch(`http://13.90.224.87:8099/api/CandidateExam/ScheduleList?pageIndex=1&pageSize=500`, {
-                method: "GET",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+                const response = await fetch(`http://13.90.224.87:8099/api/CandidateExam/ScheduleList?pageIndex=1&pageSize=500`, {
+                    method: "GET",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
 
-            const json = await response.json();
+                const json = await response.json();
 
-            if (json.isSuccess) {
-                setData(json.response);
+                if (json.isSuccess) {
+                    setData(json.response);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
-        } catch (error) {
-            console.error('Error fetching data:', error);
+        } else {
+            logOut();
         }
+
+
     };
 
     const handleSort = (column) => {
@@ -214,7 +230,7 @@ const ExamList = () => {
                                         {exam.absentCandidates.length}
                                         &nbsp;&nbsp;
                                         <AbsentCandidates candidates={exam.absentCandidates} />
-                                        
+
                                     </td>
                                     <td>{exam.status}</td>
                                     <td>

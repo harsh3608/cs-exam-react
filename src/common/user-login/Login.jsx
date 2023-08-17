@@ -43,7 +43,6 @@ const LoginForm = () => {
         .then((result) => {
           if (result.isSuccess) {
             toastr.success("logged in successfully.");
-            console.log(result);
             localStorage.setItem("token", result.response.token);
             localStorage.setItem("role", result.response.userRole);
             localStorage.setItem("user-id", result.response.userId);
