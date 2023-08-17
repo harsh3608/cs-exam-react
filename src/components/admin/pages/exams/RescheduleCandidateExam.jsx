@@ -19,8 +19,8 @@ const RescheduleCandidateExam = ({ candidateExamId, userId, fullname }) => {
             fetchData();
 
         }, 3000);
-        // }, [currentPage, rowsPerPage, searchText]);
-    },);
+        
+    }, [] );
 
     const navigate = useNavigate();
     const logOut = () => {

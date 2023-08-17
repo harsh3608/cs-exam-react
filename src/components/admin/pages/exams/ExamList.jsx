@@ -6,6 +6,7 @@ import AbsentCandidates from "./AbsentCandidates";
 import { isAuthorized } from "../../../../util/TokenAuthUtil";
 import { useNavigate } from 'react-router-dom'; 
 import toastr from 'toastr';
+import RescheduleWholeExam from "./RescheduleWholeExam";
 
 const ExamList = () => {
     const [data, setData] = useState([]);
@@ -238,11 +239,7 @@ const ExamList = () => {
                                     </td>
                                     <td>{exam.status}</td>
                                     <td>
-                                        <button className="btn btn-warning" style={{ scale: '0.8' }}>
-                                            <span className="material-icons">
-                                                edit_square
-                                            </span>
-                                        </button>
+                                        <RescheduleWholeExam examId={exam.id}/>
                                     </td>
                                 </tr>
                             ))}
