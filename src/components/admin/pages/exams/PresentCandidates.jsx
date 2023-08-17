@@ -8,8 +8,6 @@ const PresentCandidates = ({ candidates }) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    console.log(candidates);
-
     return (
         <>
             <button className="btn btn-primary" style={{ scale: '0.8' }} onClick={handleShow}>

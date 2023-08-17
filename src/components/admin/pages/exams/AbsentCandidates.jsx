@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import RescheduleCandidateExam from './RescheduleCandidateExam';
 
 const AbsentCandidates = ({ candidates }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    console.log(candidates);
 
     return (
         <>
@@ -39,11 +38,10 @@ const AbsentCandidates = ({ candidates }) => {
                                     <tr key={index} >
                                         <td className='p-2 m-2'>{candidate.fullname}</td>
                                         <td >
-                                            <button className="btn btn-warning" style={{ scale: '0.8' }}>
-                                                <span className="material-icons">
-                                                    edit_square
-                                                </span>
-                                            </button>
+                                            <RescheduleCandidateExam
+                                                candidateExamId={candidate.candidateExamId} userId={candidate.id}
+                                                fullname={candidate.fullname}
+                                            />
                                         </td>
                                     </tr>
                                 ))}
