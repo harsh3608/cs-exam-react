@@ -57,12 +57,10 @@ const PresentCandidates = ({ candidates }) => {
 
                 </Modal.Body>
                 <Modal.Footer className='mt-5'>
-                    <Button variant="secondary" onClick={handleClose}>
+                    
+                    <Button variant="primary" onClick={handleClose}>
                         Close
                     </Button>
-                    {/* <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button> */}
                 </Modal.Footer>
             </Modal>
 

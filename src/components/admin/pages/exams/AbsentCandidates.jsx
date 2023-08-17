@@ -17,7 +17,7 @@ const AbsentCandidates = ({ candidates }) => {
                 </span>
             </button>
 
-            <Modal show={show} onHide={handleClose} centered>
+            <Modal show={show} onHide={handleClose} centered className="present-modal">
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <h2>
@@ -27,10 +27,28 @@ const AbsentCandidates = ({ candidates }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div>
-                        {/* Use the candidates array to render present candidates */}
-                        {candidates.map((candidate, index) => (
-                            <span key={index}>{candidate.name} </span>
-                        ))}
+                        <table className="table mb-5">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {candidates.map((candidate, index) => (
+                                    <tr key={index} >
+                                        <td className='p-2 m-2'>{candidate.fullname}</td>
+                                        <td >
+                                            <button className="btn btn-warning" style={{ scale: '0.8' }}>
+                                                <span className="material-icons">
+                                                    edit_square
+                                                </span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
 
 
@@ -38,12 +56,12 @@ const AbsentCandidates = ({ candidates }) => {
 
 
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                <Modal.Footer className='mt-5'>
+                    {/* <Button variant="secondary" onClick={handleClose}>
                         Close
-                    </Button>
+                    </Button> */}
                     <Button variant="primary" onClick={handleClose}>
-                        Save Changes
+                        Close
                     </Button>
                 </Modal.Footer>
             </Modal>
