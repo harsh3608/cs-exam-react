@@ -13,6 +13,7 @@ import ResultList from "../components/admin/pages/results/ResultList";
 import QuestionAdd from "../components/admin/pages/questions/QuestionAdd";
 import DetailedResult from "../components/admin/pages/results/DetailedResult";
 import QuestionUpdate from "../components/admin/pages/questions/QuestionUpdate";
+import ScheduleNewExam from "../components/admin/pages/exams/ScheduleNewExam";
 
 const Router = () => (
   <div>
@@ -29,6 +30,7 @@ const Router = () => (
 
 
         <Route path="/admin/exams" element={<ProtectedRoute><ExamList /></ProtectedRoute>} />
+        <Route path="/admin/schedule-new-exam" element={<ProtectedRoute><ScheduleNewExam /></ProtectedRoute>} />
 
         <Route path="/admin/results" element={<ProtectedRoute><ResultList /></ProtectedRoute>} />
         <Route path="/admin/result-details/:examId/:userId/:name" element={<ProtectedRoute><DetailedResult /></ProtectedRoute>} />

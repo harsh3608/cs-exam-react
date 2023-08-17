@@ -94,6 +94,10 @@ const ExamList = () => {
         setCurrentPage(1);
     }
 
+    const navToScheduleNew = () => {
+        navigate("/admin/schedule-new-exam");
+    }
+
 
     const sortedData = data.slice().sort(compareValues);
 
@@ -129,7 +133,7 @@ const ExamList = () => {
                         <div className="d-flex">
 
                             <div className="mt-3">
-                                <button className="btn btn-success" >
+                                <button className="btn btn-success" onClick={() => navToScheduleNew()}>
                                     <div className="d-flex flex-row">
                                         <span className="material-icons">
                                             add
